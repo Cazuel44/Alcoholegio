@@ -3,12 +3,16 @@ import React, { useState } from 'react'
 import { Alert, Image, Pressable, StyleSheet, Text, View, SafeAreaView } from 'react-native'
 import {Button} from '../components/button'
 import { Header } from '../components/header';
+import { Theme } from '../config/theme';
+import { useNavigation } from '@react-navigation/native';
 
 
 export const Welcome = () => {
   
+  const navigation = useNavigation();
+
   const handlePress = () => {
-    alert('¡Amonos compadre!');
+    navigation.navigate('Home'), alert('¡Amonos compadre!');
   };
 
   return (
@@ -55,8 +59,8 @@ const styles = StyleSheet.create({
   },
   
   subtitle: {
-    color: '#0faf00',
-    fontSize: 16,
+    /* color: Theme.fuego[600], */
+    fontSize: 18,
   },
   logo:{
     

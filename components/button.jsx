@@ -1,5 +1,7 @@
 import React from 'react'
-import { Alert, Image, Pressable, StyleSheet, Text, View, SafeAreaView } from 'react-native'
+import { Alert, Image, Pressable, StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import { Theme } from '../config/theme';
+
 
 export const Button = ({onPress, children}) => {
     
@@ -13,7 +15,7 @@ export const Button = ({onPress, children}) => {
 
 const styles = StyleSheet.create({
     button: {
-        backgroundColor: '#03800e',
+        backgroundColor: Theme.fuego[300],
         borderRadius: 12,
         paddingHorizontal: 16,
         paddingVertical: 8,
@@ -21,7 +23,7 @@ const styles = StyleSheet.create({
         /* alignSelf: 'center'  */
     },
     buttonText: {
-        color: '#fff',
+        color: '#000000',
         fontSize: 16,
         fontWeight: 'bold',
     },

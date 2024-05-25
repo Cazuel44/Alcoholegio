@@ -18,15 +18,13 @@ export const ItemListCategories = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#c8ff03",
-    
+    marginTop: 10,
   },
   content: {
     flex: 1,
-    padding: 20, // Añade espacio entre el Header y la lista de categorías
+    padding: 20, // espacio entre el Header y la lista 
   },
   text: {
-    color: '#0c6904',
     fontSize: 20,
     marginBottom: 10
   },
