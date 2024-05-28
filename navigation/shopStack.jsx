@@ -14,12 +14,12 @@ const { Navigator: StackNavigator, Screen: StackScreen } = createNativeStackNavi
 
 
 export const ShopStack = () => (
-    <StackNavigator screenOptions={{ headerShown: false }}>
-        <StackScreen name={ROUTE.WELCOME} component={Welcome} />
-        <StackScreen name={ROUTE.HOME} component={Home} />
-        <StackScreen name={ROUTE.ALL_PRODUCTS} component={AllProducts} />
-        <StackScreen name={ROUTE.ITEM_DETAIL} component={ItemDetail} />
-        <StackScreen name={ROUTE.CART} component={Cart} />
+    <StackNavigator screenOptions={{ /* headerShown: false,*//*  headerBackVisible: true */ }}>
+        <StackScreen name={ROUTE.WELCOME} component={Welcome} options={{headerTitle: 'Bienvenido'}}/>
+        <StackScreen name={ROUTE.HOME} component={Home} options={{headerTitle: 'Inicio'}}/>
+        <StackScreen name={ROUTE.ALL_PRODUCTS} component={AllProducts} options={{headerTitle: 'Todos los productos'}}/>
+        <StackScreen name={ROUTE.ITEM_DETAIL} component={ItemDetail} options={{headerTitle: 'Detalle'}}/>
+        {/* <StackScreen name={ROUTE.CART} component={Cart} options={{headerTitle: 'Carrito'}}/> */}
 
     </StackNavigator>
 );

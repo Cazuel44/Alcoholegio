@@ -7,5 +7,5 @@ export const ROUTE = {
     ITEM_DETAIL: 'ItemDetail',
     PROMOTIONS: 'Promotion',
     CART: 'Cart',
-
+    ORDERS: 'Orders',
 };

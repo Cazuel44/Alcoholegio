@@ -1,14 +1,14 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React from 'react'
 import { ROUTE } from './routes'
-import { Cart } from '../screens/cart'
+import { Orders } from '../screens/orders'
 
 const {Navigator: StackNavigator, Screen: StackScreen} = createNativeStackNavigator()
 
-export const CartStack = () => {
+export const OrdersStack = () => {
   return (
     <StackNavigator /* screenOptions={{ headerShown: false}} */>
-        <StackScreen name={ROUTE.CART} component={Cart} options={{headerTitle: 'Carrito'}}/>
+        <StackScreen name={ROUTE.CART} component={Orders} options={{headerTitle: 'Ordenes'}}/>
     </StackNavigator>
   )
 };

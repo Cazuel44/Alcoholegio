@@ -8,17 +8,22 @@ import {Home} from './screens/home'
 import { AllProducts} from './screens/allProducts'
 import { ItemDetail } from './screens/itemDetail';
 import { Navigator } from './navigation/navigator';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 
 export default function App() {
   return (
-    <SafeAreaView style={{flex: 1}}>
-      {/* <Welcome/> */}
-      {/* <Home/> */} 
-      {/* <AllProducts/> */}
-      {/* <ItemDetail/> */}
-      <Navigator/>
-    </SafeAreaView>
+    <Provider store={store}>
+      <SafeAreaView style={{flex: 1}}>
+        {/* <Welcome/> */}
+        {/* <Home/> */} 
+        {/* <AllProducts/> */}
+        {/* <ItemDetail/> */}
+        <Navigator/>
+      </SafeAreaView>
+    </Provider>
+    
     
   );
 }

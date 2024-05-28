@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { Theme } from '../config/theme';
+import { formatPrice } from '../utils/price';
 
 export const Card = ({ id, category, brand, model, price, image }) => {
   return (
@@ -11,7 +12,7 @@ export const Card = ({ id, category, brand, model, price, image }) => {
         <Text style = {styles.texts}>{category}</Text>
         <Text style = {styles.texts}>{brand}</Text>
         <Text style = {styles.texts}>{model}</Text>
-        <Text style = {styles.texts}>${price}</Text>
+        <Text style = {styles.texts}>{formatPrice(price)}</Text>
       </View>
     </View>
   )
