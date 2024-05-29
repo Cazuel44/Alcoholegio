@@ -1,30 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
-import { Alert, Image, Pressable, StyleSheet, Text, View,  } from 'react-native'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { Welcome } from './screens/welcome'
-import {Home} from './screens/home'
-
-import { AllProducts} from './screens/allProducts'
-import { ItemDetail } from './screens/itemDetail';
-import { Navigator } from './navigation/navigator';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'; // Importar SafeAreaView de la misma línea
 import { Provider } from 'react-redux';
 import { store } from './store';
-
+import { Navigator } from './navigation/navigator';
 
 export default function App() {
   return (
-    <Provider store={store}>
+    <SafeAreaProvider>
       <SafeAreaView style={{flex: 1}}>
-        {/* <Welcome/> */}
-        {/* <Home/> */} 
-        {/* <AllProducts/> */}
-        {/* <ItemDetail/> */}
-        <Navigator/>
+        <Provider store={store}>
+          {/* Tu contenido de la aplicación aquí */}
+          <Navigator/>
+        </Provider>
       </SafeAreaView>
-    </Provider>
-    
-    
+    </SafeAreaProvider>
   );
 }
-

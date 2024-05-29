@@ -1,31 +1,46 @@
 import React from 'react'
 import { Text, View, StyleSheet, ScrollView, } from 'react-native'
-import products from '../data/products.json';
+/* import products from '../data/products.json'; */
 import { Card } from '../components/card';
-import { useRoute } from '@react-navigation/native';
+import { useFocusEffect, useRoute, useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {Button} from '../components/button';
+import { Category } from '../components/category';
+import { useSelector } from 'react-redux';
+
 
 export const ItemDetail = () => {
-    const route = useRoute();
-    const { id } = route.params;
-    console.log(id);
-  
-    const product = products.find(product => product.id === id);
-    
-    return (
-      <SafeAreaView style={styles.container}>
-        <ScrollView contentContainerStyle={styles.scrollViewContent}>
-            <View style={styles.cardContainer}>
-                {product ? <Card {...product} /> : <Text>Producto no encontrado</Text>}
-                <View style={styles.buttonContainer}>
-                    <Button onPress={() => alert('Producto agregado al carrito')}>Agregar al carrito</Button>
-                </View>
-            </View>
-        </ScrollView>
-      </SafeAreaView>
-    );
+  const navigation = useNavigation();
+  const route = useRoute();
+  const { id } = route.params;
+
+  // Obtiene el estado de los productos desde el store de Redux
+  const products = useSelector(state => state.shop.products);
+  const category = useSelector(state => state.shop.categorySelected)
+
+  // Encuentra el producto con el ID correspondiente
+  const product = products.find(product => product.id === id);
+
+  useFocusEffect(React.useCallback(() => {
+    if (product && category) {
+      navigation.setOptions({ title: category });
+    }
+  }, [navigation, product, category]));
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <View style={styles.cardContainer}>
+          {product ? <Card {...product} /> : <Text>Producto no encontrado</Text>}
+          <View style={styles.buttonContainer}>
+            <Button onPress={() => alert('Producto agregado al carrito')}>Agregar al carrito</Button>
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
 };
+
 
 const styles = StyleSheet.create({
     container: {
@@ -37,10 +52,8 @@ const styles = StyleSheet.create({
     },
     cardContainer: {
       flex: 1, 
-      
       backgroundColor: 'red',
       /* justifyContent: 'center', */
-      
       /* alignSelf: 'center', */
       
     },  

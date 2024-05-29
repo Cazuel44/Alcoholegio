@@ -2,14 +2,29 @@ import React from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { Theme } from '../config/theme';
 
-
 export const Category = ({ name, onPress }) => {
+  return (
+    <Pressable onPress={onPress} style={({ pressed }) => [
+      {
+        opacity: pressed ? 0.5 : 1,
+      },
+      styles.pressableContainer
+    ]}>
+      <View style={styles.categoryContainer}>
+        <Text style={styles.name}>{name}</Text>
+      </View>
+    </Pressable>
+  );
+};
+
+
+/* export const Category = ({ name, onPress }) => {
   return (
     <View style={styles.categoryContainer}>
       <Text style={styles.name}>{name}</Text>
     </View>
   );
-};
+}; */
 
 const styles = StyleSheet.create({
   categoryContainer: {

@@ -2,18 +2,24 @@ import React, { useEffect, useRef, useState } from 'react'
 import { View, StyleSheet, Text, FlatList, TextInput, Pressable } from 'react-native'
 import { Categories } from '../components/categories';
 import { Header } from '../components/header';
-import products from '../data/products.json';
+/* import products from '../data/products.json'; */
 import { Card } from '../components/card';
 import { useNavigation } from '@react-navigation/native';
 import { ROUTE } from '../navigation/routes';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCategorySelected, setProductIdSelected } from '../features/shop/shopSlice';
 
 export const AllProducts = () => {
+  const dispatch = useDispatch();
+  const products = useSelector(state=> state.shop.products)
 
   const navigation = useNavigation();
-  const navigateToItemDetail = (productId) => {
+  const navigateToItemDetail = (productId, category) => {
+    dispatch(setProductIdSelected(productId));
+    dispatch(setCategorySelected(category));
     navigation.navigate(ROUTE.ITEM_DETAIL, { id: productId });
   };
-
+  
   const [searchText, setSearchText] = useState('');
 
   const filteredProducts = products.filter((item) =>
@@ -27,12 +33,13 @@ export const AllProducts = () => {
   } else {
     message = null;
   }
+  
 
   return (
     <View style={styles.container}>
       <Text>Todos los productos</Text>
       <TextInput style={styles.input} onChangeText={(text) => setSearchText(text)} value={searchText} placeholder="Buscar producto..." />
-      <FlatList contentContainerStyle={styles.list} data={filteredProducts} renderItem={({ item }) => { const { id, ...rest } = item; return <Pressable onPress={() => navigateToItemDetail(item.id)}><Card {...rest} /></Pressable>; }} keyExtractor={(item) => item.id.toString()} />
+      <FlatList contentContainerStyle={styles.list} data={filteredProducts} renderItem={({ item }) => { const { id, ...rest } = item; return <Pressable onPress={() => navigateToItemDetail(item.id, item.category)}><Card {...rest} /></Pressable>; }} keyExtractor={(item) => item.id.toString()} />
       {message}
     </View>
   );

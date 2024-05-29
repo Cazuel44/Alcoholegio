@@ -1,31 +1,37 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Pressable } from 'react-native';
+import { View, Text, Pressable, TextInput, Button, StyleSheet } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { decrement, increment, incrementByAmount, reset } from '../features/counter/counterSlice';
+
+//VER CLASE 1:32
 
 export const Counter = () => {
-  const [count, setCount] = useState(0);
+  const count = useSelector(state => state.counter.value);
+  const dispatch = useDispatch();
+  
   const [inputValue, setInputValue] = useState('');
 
   const handleAdd = () => {
     if (inputValue !== '') {
-      const newValue = parseInt(inputValue, 10);
-      setCount(count + newValue);
+      const parseValue = parseInt(inputValue, 10);
+      dispatch(incrementByAmount(parseValue)); // Dispatch de incrementByAmount con el valor ingresado y parseando el numero
       setInputValue('');
     }
   };
 
   const handleReset = () => {
-    setCount(0);
+    dispatch(reset()); // Dispatch de la acción reset
     setInputValue('');
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.counterContainer}>
-        <Pressable onPress={() => setCount(count - 1)} style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}>
+        <Pressable onPress={() => dispatch(decrement())} style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}>
           <Text style={styles.buttonText}>-</Text>
         </Pressable>
         <Text style={styles.countText}>{count}</Text>
-        <Pressable onPress={() => setCount(count + 1)} style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}>
+        <Pressable onPress={() => dispatch(increment())} style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}>
           <Text style={styles.buttonText}>+</Text>
         </Pressable>
       </View>
@@ -45,6 +51,7 @@ export const Counter = () => {
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {

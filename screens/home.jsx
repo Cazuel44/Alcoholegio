@@ -7,6 +7,7 @@ import { Theme } from '../config/theme';
 import { Categories } from '../components/categories';
 import { useNavigation } from '@react-navigation/native';
 
+
 export const Home = () => {
 
   const navigation = useNavigation();
@@ -19,10 +20,10 @@ export const Home = () => {
       
       <Header/>
       <Text style={styles.text}>Revisa nuestro catalogo de productos que tenemos para ti! </Text>
-      <Categories />
+      <Categories onPress={handlePress}/>
       <View style={styles.butonbox}> 
-        <Button onPress={handlePress} >Productos</Button>
-        <Text style={styles.text}>10% de dcto. Si eres estudiante de enologia! </Text>
+        {/* <Button onPress={handlePress} >Productos</Button>
+        <Text style={styles.text}>10% de dcto. Si eres estudiante de enologia! </Text> */}
         <Button>Promos vuelta a clases</Button>
         <Text style={styles.text}>Comienza tus clases como un campeon💪 </Text>
       </View>
