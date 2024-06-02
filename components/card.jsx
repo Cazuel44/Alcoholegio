@@ -4,6 +4,7 @@ import { Theme } from '../config/theme';
 import { formatPrice } from '../utils/price';
 
 export const Card = ({ id, category, brand, model, price, image }) => {
+  /* console.log('Precio del producto:', price); */
   return (
     <View style = {styles.card}>
       <Image source={{ uri: image }} style={styles.image} />
@@ -12,7 +13,7 @@ export const Card = ({ id, category, brand, model, price, image }) => {
         <Text style = {styles.texts}>{category}</Text>
         <Text style = {styles.texts}>{brand}</Text>
         <Text style = {styles.texts}>{model}</Text>
-        <Text style = {styles.texts}>{formatPrice(price)}</Text>
+        <Text style = {styles.texts}>{/* {formatPrice(price)} */}{typeof price === 'number' ? formatPrice(price) : 'Precio no disponible'}</Text>
       </View>
     </View>
   )

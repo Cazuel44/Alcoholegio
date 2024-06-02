@@ -2,8 +2,10 @@ import React from 'react'
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import { Theme } from '../config/theme'
 import { formatPrice } from '../utils/price'
+import { removeItem } from '../features/cart/cartSlice'
 
 export const CartItem = ({id, brand, image, model, quantity, price, onDelete}) => {
+
   return (
     <View style={styles.container}>
         <Image style={styles.image} source={{uri: image}} />

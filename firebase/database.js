@@ -1,0 +1,1 @@
+export const baseUrl = 'https://alcoholegio-2d4af-default-rtdb.firebaseio.com'

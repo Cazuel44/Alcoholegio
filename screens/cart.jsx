@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
-import cartData from '../data/cart.json'
+/* import cartData from '../data/cart.json' */
 import { CartItem } from '../components/cartItem';
 import { formatPrice } from '../utils/price';
 import { Counter } from '../components/counter';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeItem } from '../features/cart/cartSlice';
 
 export const Cart = () => {
 
-  const [cart, setCart] = useState(cartData)
   
-  const totalPrice = cart.reduce((acc, {price, quantity}) => {return acc + price * quantity}, 0)
+  /* const [cart, setCart] = useState(cartData) */
+
+  const cart = useSelector(state => state.cart.value.items)
+  const totalPrice = cart.reduce((acc, { price, quantity }) => acc + price * quantity, 0);
 
   const handleDelete = (id) => {
-    setCart(cart.filter((item) => item.id !== id));
+    /* setCart(cart.filter((item) => item.id !== id)); */
+    useDispatch(removeItem(id));
   };
 
   return (
