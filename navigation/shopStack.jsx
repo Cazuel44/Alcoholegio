@@ -8,6 +8,8 @@ import { Welcome } from '../screens/welcome';
 
 import { ROUTE } from './routes';
 import { Cart } from '../screens/cart';
+import { Login } from '../screens/login';
+import { SingUp } from '../screens/singUp';
 
 
 const { Navigator: StackNavigator, Screen: StackScreen } = createNativeStackNavigator();
@@ -19,6 +21,8 @@ export const ShopStack = () => (
         <StackScreen name={ROUTE.HOME} component={Home} options={{headerTitle: 'Inicio'}}/>
         <StackScreen name={ROUTE.ALL_PRODUCTS} component={AllProducts} options={{headerTitle: 'Todos los productos'}}/>
         <StackScreen name={ROUTE.ITEM_DETAIL} component={ItemDetail} />
+        <StackScreen name={ROUTE.SING_UP} component={SingUp} />
+        <StackScreen name={ROUTE.LOGIN} component={Login} />
         {/* <StackScreen name={ROUTE.CART} component={Cart} options={{headerTitle: 'Carrito'}}/> */}
 
     </StackNavigator>

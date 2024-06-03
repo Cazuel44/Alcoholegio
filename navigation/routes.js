@@ -8,4 +8,6 @@ export const ROUTE = {
     PROMOTIONS: 'Promotion',
     CART: 'Cart',
     ORDERS: 'Orders',
+    LOGIN: 'Login',
+    SING_UP: 'SingUp'
 };
