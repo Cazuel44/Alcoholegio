@@ -1,20 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, TextInput, StyleSheet, Text, } from 'react-native';
 import { Button } from './button'; // Asegúrate de que la ruta es correcta
 import { useNavigation } from '@react-navigation/native';
+import { useLoginMutation } from '../services/authServices';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../features/auth/authSlice';
 
 export const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
+  const [triggerLogin, result] = useLoginMutation();
+  const [isLoading, setIsLoading] = useState(false);  
+  const dispatch = useDispatch()
 
-  const handleLogin = () => {
-    if (validateEmail(email)) {
-      console.log('Email:', email);
-      console.log('Password:', password);
-      // Aquí puedes agregar la lógica para manejar el inicio de sesión, por ejemplo, llamar a una API
-    } else {
-      alert('Por favor, ingresa un correo electrónico válido.');
+  const handleLogin = async () => {  // Agregado el async aquí
+    try {
+      setIsLoading(true);
+      await triggerLogin({ email, password });  // Corregido el uso de await aquí
+      /* console.log('Token:', result.data.token); */
+    } catch (error) {
+      console.error('Error en la solicitud de ingreso:', error);
+      alert('Error, Correo o contraseña incorrectos');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -22,10 +31,14 @@ export const LoginForm = () => {
     navigation.navigate('SingUp');
   };
 
-  const validateEmail = (email) => {
-    console.log('Validando email:', email);
-    return email.includes('@');
-  };
+  useEffect(() => {
+    if (result.data) {
+      const { email, localId, idToken: token } = result.data;
+      dispatch(setUser({ email, localId, token }));
+      /* insertSession({ email, localId, token }); */
+    }
+  }, [result.data]);
+
 
   return (
     <View style={styles.container}>

@@ -3,14 +3,15 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import { Navigator } from './navigation/navigator';
+import { MainNavigator } from './navigation/mainNavigator';
 
 export default function App() {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={{flex: 1}}>
         <Provider store={store}>
-          {/* Tu contenido de la aplicación aquí */}
-          <Navigator/>
+          <MainNavigator/>
+          {/* <Navigator/> */}
         </Provider>
       </SafeAreaView>
     </SafeAreaProvider>

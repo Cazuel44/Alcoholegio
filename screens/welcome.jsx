@@ -12,7 +12,7 @@ export const Welcome = () => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.navigate(/* 'Home' */'SingUp'), alert('¡Amonos compadre!');
+    navigation.navigate('Home'/* 'SingUp' */), alert('¡Amonos compadre!');
   };
 
   return (

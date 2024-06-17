@@ -25,7 +25,37 @@ export const shopApi = createApi({
                 body: order,
             }),
         }),
+        getProfileImage: builder.query({
+            query: localId => `profileImages/${localId}.json`,
+        }),
+        postProfileImage: builder.mutation({
+            query: ({ image, localId }) => ({
+                url: `profileImages/${localId}.json`,
+                method: 'PUT',
+                body: { image },
+            }),
+        }),
+        getUserLocation: builder.query({
+            query: localId => `locations/${localId}.json`,
+        }),
+        postUserLocation: builder.mutation({
+            query: ({ location, localId }) => ({
+                url: `locations/${localId}.json`,
+                method: 'PUT',
+                body: { ...location },
+            }),
+        }),
     }),
 });
 
-export const { useGetProductsQuery, useGetProductByIdQuery, useGetProductsByCategoryQuery, useGetCategoriesQuery, usePostOrderMutation, } = shopApi;
+export const {
+    useGetProductsQuery,
+    useGetProductByIdQuery,
+    useGetProductsByCategoryQuery,
+    useGetCategoriesQuery,
+    usePostOrderMutation,
+    useGetProfileImageQuery,
+    usePostProfileImageMutation,
+    useGetUserLocationQuery,
+    usePostUserLocationMutation,
+} = shopApi;

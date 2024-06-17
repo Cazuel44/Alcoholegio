@@ -9,5 +9,8 @@ export const ROUTE = {
     CART: 'Cart',
     ORDERS: 'Orders',
     LOGIN: 'Login',
-    SING_UP: 'SingUp'
+    SING_UP: 'SingUp',
+    MY_PROFILE: 'MyProfile',
+    IMAGE_SELECTOR: 'ImageSelector',
+    LOCATION_SELECTOR: 'LocationSelector',
 };
