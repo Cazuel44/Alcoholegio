@@ -18,21 +18,13 @@ export const Category = ({ name, onPress }) => {
 };
 
 
-/* export const Category = ({ name, onPress }) => {
-  return (
-    <View style={styles.categoryContainer}>
-      <Text style={styles.name}>{name}</Text>
-    </View>
-  );
-}; */
-
 const styles = StyleSheet.create({
   categoryContainer: {
     width: 170,
     marginHorizontal: 5,
     marginBottom: 20,
-    borderRadius: 85, // la mitad del ancho y la altura para hacerlo redondo
-    overflow: 'hidden', // para asegurar que el contenido no se desborde
+    borderRadius: 85,
+    overflow: 'hidden', 
     backgroundColor: '#000000'
   },
   name: {
@@ -40,19 +32,8 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
     marginBottom: 10,
     backgroundColor: Theme.fuego[400],
-    borderRadius: 85, // redondear el borde del texto
+    borderRadius: 85, 
     padding: 10,
-    textAlign: 'center', // centrar el texto
+    textAlign: 'center', 
   }
 });
-
-
-/*
-export const Category = ({ name, onPress }) => {
-  return (
-    <Pressable onPress={onPress} style={styles.categoryContainer}>
-      <Text style={styles.name}>{name}</Text>
-    </Pressable>
-  );
-};
-*/

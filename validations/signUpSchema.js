@@ -1,4 +1,4 @@
-import {object, string, ref} from 'yup';
+import { object, string, ref } from 'yup';
 
 export const signupSchema = object().shape({
     email: string().email('No es un correo valido').required('El email es requerido'),

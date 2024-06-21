@@ -4,13 +4,18 @@ import { Provider } from 'react-redux';
 import { store } from './store';
 import { Navigator } from './navigation/navigator';
 import { MainNavigator } from './navigation/mainNavigator';
+import { init } from './db';
+
+init()
+  .then(() => console.log('Database initialized'))
+  .catch(err => console.error('Database initialization failed', err))
 
 export default function App() {
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={{flex: 1}}>
+      <SafeAreaView style={{ flex: 1 }}>
         <Provider store={store}>
-          <MainNavigator/>
+          <MainNavigator />
           {/* <Navigator/> */}
         </Provider>
       </SafeAreaView>

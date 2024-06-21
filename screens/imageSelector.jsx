@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import * as ImagePicker from 'expo-image-picker'
-/* import {PermissionStatus, launchImageLibraryAsync} from 'expo-image-picker' */
 import { Alert, Image, StyleSheet, Text, View } from 'react-native'
 import { Button } from '../components/button'
 import { useDispatch, useSelector } from 'react-redux'
-import { setCameraImg, setUserImgProfile} from '../features/auth/authSlice'
+import { setCameraImg, setUserImgProfile } from '../features/auth/authSlice'
 import { useNavigation } from '@react-navigation/native'
 import { usePostProfileImageMutation } from '../services/shopServices'
 
@@ -13,7 +12,7 @@ export const ImageSelector = () => {
     const [image, setImage] = useState(null)
     const [isSavingProfileImage, setIsSavingProfileImage] = useState(false)
     const dispatch = useDispatch()
-    const {goBack} = useNavigation()
+    const { goBack } = useNavigation()
     const [triggerSaveProfileImage] = usePostProfileImageMutation()
     const localId = useSelector(state => state.auth.value.user.localId)
 

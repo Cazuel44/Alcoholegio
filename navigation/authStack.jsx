@@ -9,7 +9,7 @@ const {Navigator: StackNavigator, Screen: StackScreen} = createNativeStackNaviga
 
 export const AuthStack = () => {
   return (
-    <StackNavigator /* screenOptions={{ headerShown: false}} */>
+    <StackNavigator >
         <StackScreen name={ROUTE.LOGIN} component={Login} />
         <StackScreen name={ROUTE.SING_UP} component={SingUp} />
     </StackNavigator>

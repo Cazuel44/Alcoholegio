@@ -1,4 +1,0 @@
-[
-    {"id": 1, "category": "cerveza", "brand": "Corona", "model": "Extra", "price": 1.5, "image": "https://www.guiadelacerveza.com/wp-content/uploads/2023/04/Cerveza-Corona-Extra-Light-Lager.jpg", "quantity": 2},
-    {"id": 2, "category": "cerveza", "brand": "Heineken", "model": "Original", "price": 2.0, "image": "https://d1ks0wbvjr3pux.cloudfront.net/f479191a-a020-46fe-b8bf-82ed01ea50f0-lg.jpg", "quantity": 1}
-]

@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    padding: 20, // espacio entre el Header y la lista 
+    padding: 20,
   },
   text: {
     fontSize: 20,

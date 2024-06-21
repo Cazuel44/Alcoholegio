@@ -4,16 +4,15 @@ import { Theme } from '../config/theme';
 import { formatPrice } from '../utils/price';
 
 export const Card = ({ id, category, brand, model, price, image }) => {
-  /* console.log('Precio del producto:', price); */
   return (
-    <View style = {styles.card}>
+    <View style={styles.card}>
       <Image source={{ uri: image }} style={styles.image} />
-      <View style = {styles.props}>
-        <Text style = {styles.texts}>{id}</Text>
-        <Text style = {styles.texts}>{category}</Text>
-        <Text style = {styles.texts}>{brand}</Text>
-        <Text style = {styles.texts}>{model}</Text>
-        <Text style = {styles.texts}>{/* {formatPrice(price)} */}{typeof price === 'number' ? formatPrice(price) : 'Precio no disponible'}</Text>
+      <View style={styles.props}>
+        <Text style={styles.texts}>{id}</Text>
+        <Text style={styles.texts}>{category}</Text>
+        <Text style={styles.texts}>{brand}</Text>
+        <Text style={styles.texts}>{model}</Text>
+        <Text style={styles.texts}>{typeof price === 'number' ? formatPrice(price) : 'Precio no disponible'}</Text>
       </View>
     </View>
   )
@@ -28,20 +27,19 @@ const styles = StyleSheet.create({
     margin: 20,
     borderRadius: 10
   },
-  image:{
-    /* aspectRatio: 1, */
+  image: {
     flex: 1,
     resizeMode: 'cover',
     backgroundColor: '#000000',
     margin: 10,
     minHeight: 300,
-  },    
+  },
   props: {
     gap: 4,
     paddingHorizontal: 16,
     paddingVertical: 1,
   },
-  texts:{
+  texts: {
     fontSize: 15,
     fontWeight: 'bold'
   }

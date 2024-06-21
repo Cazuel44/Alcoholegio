@@ -1,90 +1,73 @@
-import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { Theme } from '../config/theme'
-import { Button } from '../components/button'
-import * as Location from 'expo-location'
-import { MapPreview } from '../components/mapPreview'
-import { useDispatch, useSelector } from 'react-redux'
-import { setUserLocation } from '../features/auth/authSlice'
-import { usePostUserLocationMutation } from '../services/shopServices'
-import { googleAPI } from '../config/googleApi'
-import { useNavigation } from '@react-navigation/native'
-
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
+import { Button } from '../components/button';
+import { setUserLocation } from '../features/auth/authSlice';
+import { usePostUserLocationMutation } from '../services/shopServices';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import * as Location from 'expo-location';
 
 export const LocationSelector = () => {
-    const [address, setAddress] = useState('')
-    const [location, setLocation] = useState({ latitude: '', longitude: '' })
-    const [error, setError] = useState('')
-    const hasLocation = location.latitude && location.longitude
-    const [triggerPostUserLocation] = usePostUserLocationMutation()
-    const localId = useSelector(state => state.auth.value.user.localId)
-    const dispatch = useDispatch()
-    const { goBack } = useNavigation()
-    const [isSavingLocation, setIsSavingLocation] = useState(false)
+    const [location, setLocation] = useState(null);
+    const [error, setError] = useState('');
+    const [isSavingLocation, setIsSavingLocation] = useState(false);
+    const [triggerPostUserLocation] = usePostUserLocationMutation();
+    const localId = useSelector(state => state.auth.value.user.localId);
+    const dispatch = useDispatch();
+    const { goBack } = useNavigation();
 
     const getLocation = async () => {
         try {
-            const { status } = await Location.requestForegroundPermissionsAsync()
+            const { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {
-                setError('Permisos insuficientes')
-                return
+                setError('Permisos insuficientes');
+                return;
             }
-            const location = await Location.getCurrentPositionAsync()
-            setLocation(location.coords)
+            const location = await Location.getCurrentPositionAsync();
+            setLocation(location.coords);
         } catch (error) {
-            setError(error.message)
+            setError(error.message);
         }
-    }
-
-    const getAdress = async () => {
-        console.log('getAdress')
-        try {
-            const reverseGeocode = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.latitude},${location.longitude}&key=${googleAPI.geocoding}`
-            const response = await fetch(reverseGeocode)
-            const data = await response.json()
-            setAddress(data.results[0].formatted_address)
-        } catch (error) {
-            setError(error.message)
-        }
-    }
+    };
 
     const confirmAdress = async () => {
         try {
-            setIsSavingLocation(true)
-            const locationFormatted = {
-                address,
-                latitude: location.latitude,
-                longitude: location.longitude,
-            }
-            await triggerPostUserLocation({ location: locationFormatted, localId })
-            dispatch(setUserLocation(locationFormatted))
-            goBack()
+            setIsSavingLocation(true);
+            await triggerPostUserLocation({ location, localId }); // Enviamos directamente la ubicación
+            dispatch(setUserLocation(location));
+            goBack();
         } catch (error) {
-            setError(error.message)
+            setError(error.message);
         } finally {
-            setIsSavingLocation(false)
+            setIsSavingLocation(false);
         }
-    }
+    };
 
     useEffect(() => {
-        if (hasLocation) getAdress()
-    }, [location])
-
-
-    useEffect(() => {
-        getLocation()
-    }, [])
+        getLocation();
+    }, []);
 
     return (
         <View style={styles.container}>
-            {hasLocation ? (
+            {location ? (
                 <>
                     <Text style={styles.title}>Mi ubicación</Text>
-                    <Text
-                        style={styles.text}
-                    >{`Latitud: ${location.latitude}, Longitud: ${location.longitude}`}</Text>
-                    {address ? <Text style={styles.text}>{address}</Text> : null}
-                    <MapPreview location={location} />
+                    <Text style={styles.text}>{`Latitud: ${location.latitude}, Longitud: ${location.longitude}`}</Text>
+                    <MapView
+                        style={styles.map}
+                        initialRegion={{
+                            latitude: location.latitude,
+                            longitude: location.longitude,
+                            latitudeDelta: 0.0922,
+                            longitudeDelta: 0.0421,
+                        }}
+                    >
+                        <Marker
+                            coordinate={{ latitude: location.latitude, longitude: location.longitude }}
+                            title={"Tu ubicación"}
+                        />
+                    </MapView>
                     <Button onPress={confirmAdress}>
                         {isSavingLocation ? 'Confirmando...' : 'Confirmar ubicación'}
                     </Button>
@@ -96,21 +79,28 @@ export const LocationSelector = () => {
                 </>
             )}
         </View>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center',
-        /* backgroundColor: theme.colors.white, */
         flex: 1,
-        gap: 32,
+        alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: '#fff',
     },
     title: {
-        fontSize: 24,
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 10,
     },
     text: {
-        color: Theme.fuego[800],
+        fontSize: 16,
+        marginBottom: 10,
     },
-})
+    map: {
+        width: '80%',
+        height: 300,
+        marginBottom: 10,
+    },
+});

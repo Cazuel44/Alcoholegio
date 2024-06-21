@@ -25,7 +25,7 @@ export const MyProfile = () => {
 
   return (
     <View style={styles.container}>
-        <Text>{email}</Text>
+        <Text style={styles.userEmail}>{email}</Text>
         <Image source={imgProfile ? { uri: imgProfile } :require('../assets/profileIMG.jpg')} style={styles.image}/>
         <Button onPress={goToImageSelector}>Agregar foto de perfil</Button>
         <Button onPress={goToMyLocation}>Mi dirección</Button>
@@ -45,5 +45,10 @@ const styles = StyleSheet.create({
         width: 160,
         height: 160,
         borderRadius: 80,
+    },
+    userEmail: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        fontStyle: 'italic'
     },
 })

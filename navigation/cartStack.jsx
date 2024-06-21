@@ -7,7 +7,7 @@ const {Navigator: StackNavigator, Screen: StackScreen} = createNativeStackNaviga
 
 export const CartStack = () => {
   return (
-    <StackNavigator /* screenOptions={{ headerShown: false}} */>
+    <StackNavigator >
         <StackScreen name={ROUTE.CART} component={Cart} options={{headerTitle: 'Carrito'}}/>
     </StackNavigator>
   )

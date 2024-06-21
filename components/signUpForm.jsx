@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, Text, } from 'react-native';
+import { View, TextInput, StyleSheet, Text, Alert, } from 'react-native';
 import { Button } from './button'; // Asegúrate de que la ruta es correcta
 import { useNavigation } from '@react-navigation/native';
-import { useSignUpMutation,  } from '../services/authServices';
+import { useSignUpMutation, } from '../services/authServices';
 import { signupSchema } from '../validations/signUpSchema';
 
 
-//!!!!!!!!!!!!!VERIFICAR MOSTRAR ERRORES EN LOS INPUTS
 export const SignUpForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -30,34 +29,31 @@ export const SignUpForm = () => {
         password,
         repeatPassword,
       })
-      // Aquí se realiza la solicitud de registro
       const response = await triggerSignUp({ email, password }).unwrap();
       console.log('Sign Up successful:', response);
-      // Navegar a la pantalla de inicio de sesión después de registrarse exitosamente
       navigation.navigate('Login');
     } catch (error) {
-      // Aquí se manejan los errores
       console.error('Error during sign up:', error);
-      /* alert('Hubo un problema al registrarse. Inténtalo de nuevo.'); */
+      Alert('Hubo un problema al registrarse. Inténtalo de nuevo.');
       switch (error.path) {
         case 'email':
           setErrorEmail(error.message)
-          
+
           break;
         case 'password':
           setErrorPassword(error.message)
-          
+
           break;
         case 'repeatPassword':
           setErrorRepeatPassword(error.message)
-          
-          break;  
+
+          break;
         default:
           break;
       }
     }
   };
- 
+
   return (
     <View style={styles.container}>
       <Text style={styles.label}>Email:</Text>
@@ -70,7 +66,6 @@ export const SignUpForm = () => {
         autoCapitalize="none"
         error={errorEmail}
       />
-      {/* {errorEmail ? <Text style={styles.error}>{errorEmail}</Text> : null} */}
       <Text style={styles.label}>Password:</Text>
       <TextInput
         style={styles.input}
@@ -91,12 +86,13 @@ export const SignUpForm = () => {
         autoCapitalize="none"
         error={errorRepeatPassword}
       />
-      <Button onPress={handleSignUp}>Ingresar!</Button>
-      <View>
+
+      <View style={styles.footer}>
+        <Button onPress={handleSignUp}>Ingresar!</Button>
         <Text>Ya estas registrado?</Text>
         <Button onPress={goToLogin}>Ingresa con tu cuenta</Button>
       </View>
-      
+
     </View>
   );
 };
@@ -118,5 +114,9 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     paddingHorizontal: 8,
     borderRadius: 4,
+  },
+  footer: {
+    marginTop: 16,
+    alignItems: 'center',
   },
 });

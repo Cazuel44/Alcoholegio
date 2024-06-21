@@ -5,20 +5,20 @@ import { useNavigation } from '@react-navigation/native';
 import { useLoginMutation } from '../services/authServices';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../features/auth/authSlice';
+import { fetchSession, insertSession } from '../db';
 
 export const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
   const [triggerLogin, result] = useLoginMutation();
-  const [isLoading, setIsLoading] = useState(false);  
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch()
 
-  const handleLogin = async () => {  // Agregado el async aquí
+  const handleLogin = async () => { 
     try {
       setIsLoading(true);
-      await triggerLogin({ email, password });  // Corregido el uso de await aquí
-      /* console.log('Token:', result.data.token); */
+      await triggerLogin({ email, password });  
     } catch (error) {
       console.error('Error en la solicitud de ingreso:', error);
       alert('Error, Correo o contraseña incorrectos');
@@ -35,7 +35,16 @@ export const LoginForm = () => {
     if (result.data) {
       const { email, localId, idToken: token } = result.data;
       dispatch(setUser({ email, localId, token }));
-      /* insertSession({ email, localId, token }); */
+      insertSession({ email, localId, token })
+        .then(() => {
+          console.log('Session inserted:', { email, localId, token });
+          fetchSession().then(session => {
+            console.log('Fetched session after insertion:', session);
+          });
+        })
+        .catch(error => {
+          console.error('Error inserting session:', error);
+        });
     }
   }, [result.data]);
 
@@ -60,8 +69,9 @@ export const LoginForm = () => {
         secureTextEntry
         autoCapitalize="none"
       />
-      <Button onPress={handleLogin}>Ingresar!</Button>
+
       <View style={styles.footer}>
+        <Button onPress={handleLogin}>{isLoading ? 'Ingresando...' : 'ingresar'}</Button>
         <Text>¿No tienes cuenta?</Text>
         <Button onPress={goToSingUp}>Regístrate</Button>
       </View>
