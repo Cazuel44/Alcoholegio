@@ -1,6 +1,5 @@
 // AQUI SE CONFIGURA REDUX
 import { configureStore } from '@reduxjs/toolkit';
-import counterSlice from '../features/counter/counterSlice';
 import shopSlice from '../features/shop/shopSlice';
 import { shopApi } from '../services/shopServices';
 import { setupListeners } from '@reduxjs/toolkit/query';
@@ -11,7 +10,6 @@ import authSlice from '../features/auth/authSlice';
 export const store = configureStore({
     reducer: {
         auth: authSlice,
-        counter: counterSlice,
         cart: cartSlice,
         shop: shopSlice,
         [authApi.reducerPath]: authApi.reducer,

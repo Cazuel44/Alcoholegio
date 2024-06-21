@@ -25,6 +25,7 @@ export const Cart = () => {
     if (user) {
       console.log('Confirmando compra, detalles:');
       triggerPost({ items: cart, total: totalPrice, user, fecha: new Date().toISOString() });
+      dispatch(clearCart());
       goBack()
     } else {
       console.log('User not logged in');
