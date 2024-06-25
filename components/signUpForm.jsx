@@ -88,7 +88,7 @@ export const SignUpForm = () => {
       />
 
       <View style={styles.footer}>
-        <Button onPress={handleSignUp}>Ingresar!</Button>
+        <Button onPress={handleSignUp}>Crear Cuenta</Button>
         <Text>Ya estas registrado?</Text>
         <Button onPress={goToLogin}>Ingresa con tu cuenta</Button>
       </View>
